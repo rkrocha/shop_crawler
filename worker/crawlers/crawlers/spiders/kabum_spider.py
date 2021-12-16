@@ -23,7 +23,7 @@ class KabumSpider(scrapy.Spider):
             doc['url'] = "www.kabum.com.br" + product.xpath("./@href").get()
 
             info = {}
-            info['price'] = float(''.join(c for c in price if c.isdigit())) / 100 # mover conversão de tipo para o pipeline
+            info['price'] = float(''.join(char for char in price if char.isdigit())) / 100 # mover conversão de tipo para o pipeline
             info['date'] = date
 
             doc['info'] = info

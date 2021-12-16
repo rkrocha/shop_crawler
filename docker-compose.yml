@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  storage:
+    image: mongo:4.4.10
+    container_name: storage
+    environment:
+      - "MONGO_INITDB_ROOT_USERNAME: root"
+      - "MONGO_INITDB_ROOT_PASSWORD: 1234"
+    volumes:
+      - data:/data/db
+
+  worker:
+    build: ./worker
+    container_name: worker
+    depends_on:
+      - storage
+    working_dir: /app
+    volumes:
+      - ./configs:/app/configs
+      - ./worker/start.py:/app/start.py
+      - ./worker/crawlers:/app/crawlers
+      - ./worker/report:/app/report
+      - ./results.json:/app/results/results.json
+    environment:
+      - "PYTHONPATH=/app/configs:/app/crawlers:/app/report"
+
+volumes:
+  data:
