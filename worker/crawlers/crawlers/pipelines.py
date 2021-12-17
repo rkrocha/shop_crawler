@@ -18,5 +18,6 @@ class MongoPipeline(object):
     def process_item(self, item, spider):
         product = ItemAdapter(item)
         self.collection.find_one_and_update({'_id': product['_id']},
-                        {'$push': {'info': product['info'][0]}}, upsert=True)
+                {'$push': {'info': {'$each': product['info'], '$position': 0}}},
+                        upsert=True)
         return item
