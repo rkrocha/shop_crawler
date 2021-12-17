@@ -19,7 +19,6 @@ services:
     volumes:
       - ./configs:/app/configs
       - ./worker:/app/worker
-      - ./results.json:/app/results/results.json
     environment:
       - "PYTHONPATH=/app:/app/configs:/app/worker:/app/worker/crawlers:/app/worker/crawlers/crawlers/spiders:/app/worker/report"
 
